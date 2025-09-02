@@ -80,7 +80,7 @@ namespace ChessLogic
 
                 if (!HasMoved && CanMoveTo(twoMovesPos, board))
                 {
-                    yield return new NormalMove(from, twoMovesPos);
+                    yield return new DoublePawn(from, twoMovesPos);
                 }
             }
         }
@@ -90,6 +90,12 @@ namespace ChessLogic
             foreach (Direction dir in new Direction[] { Direction.West, Direction.East })
             {
                 Position to = from + forward + dir;
+
+                if (to == board.GetPawnSkipPosition(Color.Opponent()))
+                {
+                    yield return new EnPassant(from, to);
+                }
+                else
 
                 if (CanCaptureAt(to, board))
                 {
