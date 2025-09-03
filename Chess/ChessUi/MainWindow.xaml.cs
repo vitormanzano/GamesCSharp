@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using ChessLogic;
@@ -214,11 +215,36 @@ namespace ChessUi
 
         private void RestartGame()
         {
+            selectedPos = null;
             HideHighlights();
             moveCache.Clear();
             gameState = new GameState(Player.White, Board.Initial());
             DrawBoard(gameState.Board);
             SetCursor(gameState.CurrentPlayer);
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (!IsMenuOnScreen() && e.Key == Key.Escape)
+            {
+                ShowPauseMenu();
+            }
+        }
+
+        private void ShowPauseMenu()
+        {
+            PauseMenu pauseMenu = new();
+            MenuContainer.Content = pauseMenu;
+
+            pauseMenu.OptionSelected += option =>
+            {
+                MenuContainer.Content = null;
+
+                if (option == Option.Restart)
+                {
+                    RestartGame();
+                }
+            };
         }
     }
 }
