@@ -1,4 +1,6 @@
-﻿namespace ChessLogic
+﻿using ChessLogic.Moves;
+
+namespace ChessLogic
 {
     public class Queen : Piece
     {
