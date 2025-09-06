@@ -6,6 +6,6 @@
         StaleMate,
         FiftyMoveRule,
         InsufficientMaterial,
-        TheeeFoldRepetition
+        ThreeFoldRepetition
     }
 }
